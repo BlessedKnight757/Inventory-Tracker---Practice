@@ -1,5 +1,6 @@
 /*
 Author: Brandon Kennedy
+Old Assignment given to me by Prof. Lisa Carter
 
 This is an old program that I got a decent grade on in class, 
 but I never got it working correctly. I want to get this program running
@@ -45,7 +46,7 @@ struct items
 int main()
 {
 	int option1(int);//Prototypes for the menu prompt options
-	int option2(int);
+	int option2(int);//I plan on making them outside of main, but I want to figure out how to make everything work first.
 	int option3(int);
 	int option4(int);
 	int option5(int);
@@ -60,7 +61,10 @@ int main()
 	float sum = 0.0;//Tracks total value of each item
 	items *item = new items[20];//Holds the items created
 
-	while(opt != 7)
+	/*I plan on making the code more efficient and easier to read. My goal right now is to figure out
+	how I can make this program do everything I want it to do first. */
+	
+	while(opt != 7)//Continue displaying this prompt until 7 is entered.
 	{
 		cout<<"Inventory Tracker\n"<<endl;
 		cout<<"1. New Item(s)"<<endl;
@@ -73,7 +77,7 @@ int main()
 		cout<<"______________________________"<<endl;
 		cin>>opt;
 
-		if(opt < 1 || opt > 7)//Input Validation
+		if(opt < 1 || opt > 7)//Input Validation - Plan on making a way for char/string to give the same message without crashing
 		{
         		cout<<"Error:Invalid Entry!"<<endl;
         		cout<<"Please enter a valid option."<<endl;
@@ -100,12 +104,10 @@ int main()
 
 			if(item[i_count].price > 10000)
 			{
-				while(stop == 0)//Valid Price check
+				while(item[i_count].price > 10000 || item[i_count].price < 0)//Valid Price check
 				{
 					cout<<"Price should not exceed $10,000. Please try again." << endl;
 					cin>>item[i_count].price;
-					if(item[i_count].price < 10001)
-						stop = 1;
 				}
 			}
 
@@ -123,7 +125,8 @@ int main()
 			}
 			i_count++;//New item has been made
 		}
-		else if(opt== 2)//Option 2 -couldn't figure out how to order this
+		/*Issue 1*/
+		else if(opt== 2)//Alphabetic Ordered List -couldn't figure out how to order this
 		{
 			string display = item[i_count].name;
 			if(i_count == 0)
@@ -133,21 +136,23 @@ int main()
 			for(control = 0; control < i_count; control++)
 			{
 				if(item[control].name < display)
-                			{
-                    				cout<<"\nItem name: "<<display<<endl;
-                    				cout<<"\nPrice: $"<<item[i_count].price<<endl;
-                			}
+                		{
+                    			cout<<"\nItem name: "<<display<<endl;
+                    			cout<<"\nPrice: $"<<item[i_count].price<<endl;
+                		}
                 		else
-					{
-		    				cout<< "\nItem name: "<<item[control].name<< endl;
-                    				cout<< "\nPrice: $"<<item[control].price << endl;
-					}
+				{
+		    			cout<< "\nItem name: "<<item[control].name<< endl;
+                    			cout<< "\nPrice: $"<<item[control].price << endl;
+				}
 			}
 		}
-		else if(opt==3)//Option 3 - couldn't figure this one out either
+		
+		else if(opt==3)//Descending Ordered List - couldn't figure this one out either
         	{
             		float h_price = item[i_count].price;
-            		if(i_count == 0)
+            		
+			if(i_count == 0)
 			{
 				cout <<"List is empty!"<<endl;//Checks for empty list
 			}
@@ -156,7 +161,7 @@ int main()
 			{
 				if(h_price > item[control].price)
                 		{
-                			cout << "\nItem name: "<<item[i_count].name<< endl;	//Displays item in list form
+                			cout << "\nItem name: "<<item[i_count].name<< endl;	
 					cout << "\nPrice: $"<<h_price<<endl;
                			}
                 		else
@@ -166,10 +171,10 @@ int main()
 				}
         	}
 			
-		else if(opt==4)//Option 4
-			cout<<"Total quantity of item is: "<<t_quantity<<endl;//Total items quantity
+		else if(opt==4)//Display Total Quantity of All items made from option 1
+			cout<<"Total quantity of items is: "<<t_quantity<<endl;//Total items quantity
 		
-		else if(opt == 5)//Option 5
+		else if(opt == 5)//Display Total Value of All items made from option 1
 		{
 			if(i_count == 0)
 			{
@@ -182,7 +187,8 @@ int main()
 			cout<<setprecision(2)<<endl;
 			cout<<"Total value of all asset is: $" <<sum<<'\n'<<endl;
 		}
-		else if(opt == 6)
+		
+		else if(opt == 6)//Display All Insured Items made from option 1 
 		{
 			if(i_count == 0)
 			{
@@ -197,7 +203,8 @@ int main()
 				cout<< "\nInsured: "<<item[control].insured<<endl;
 			}
 		}
-		else
+		
+		else//End the program only after 7 has been entered
 		return 0;
 	}
 }
